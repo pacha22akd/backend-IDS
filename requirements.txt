@@ -1,0 +1,8 @@
+Flask==3.1.3
+Jija2==3.1.6
+MarkupSafe==3.0.3
+mysql-connector-python==26.7.0
+SQLAlchemy==2.0.53
+python-dotenv==1.2.3
+Wekzeug==3.1.8
+flask-cors==6.0.5
