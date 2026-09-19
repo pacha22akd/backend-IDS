@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS reservas (
     fecha_hora_inicio DATETIME NOT NULL,
     fecha_hora_fin DATETIME NOT NULL,
     estado ENUM('confirmada','cancelada','finalizada') NOT NULL DEFAULT 'confirmada',
-    tarifa_historica INT NOT NULL,
-    importe_total INT NOT NULL,
+    precio_hora INT NOT NULL,
+    precio_total INT NOT NULL,
     FOREIGN KEY (id_cancha) REFERENCES canchas(id),
     FOREIGN KEY (id_socio) REFERENCES socios(id)
 );

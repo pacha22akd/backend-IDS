@@ -6,3 +6,4 @@ SQLAlchemy==2.0.53
 python-dotenv==1.2.3
 Wekzeug==3.1.8
 flask-cors==6.0.5
+Flask-SQLAlchemy==3.1.1
