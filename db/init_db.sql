@@ -53,7 +53,7 @@ INSERT INTO socios (nombre, email, activo) VALUES
     ('Carla Fernández', 'carla.fernandez@example.com', FALSE),
     ('Diego López', 'diego.lopez@example.com', FALSE);
 
-INSERT INTO reservas (id_cancha, id_socio, fecha_hora_inicio, fecha_hora_fin, estado, tarifa_historica, importe_total) VALUES
+INSERT INTO reservas (id_cancha, id_socio, fecha_hora_inicio, fecha_hora_fin, estado, precio_hora, precio_total) VALUES
     (1, 1, '2026-10-15 18:00:00', '2026-10-15 20:00:00', 'confirmada', 1000000, 2000000),
     (3, 2, '2026-10-16 09:00:00', '2026-10-16 10:00:00', 'confirmada',  800000,  800000),
     (5, 3, '2026-10-17 20:00:00', '2026-10-17 22:00:00', 'cancelada',   900000, 1800000);
