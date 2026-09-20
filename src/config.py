@@ -3,6 +3,9 @@ from dotenv import load_dotenv #me permite cargar el archivo .env
 
 load_dotenv() #carga las variables de entorno definivas en el .env
 
+# URL base de la API
+BASE_URL = '/club_deportivo_api'
+
 DB_HOST = os.getenv('DB_HOST', 'localhost')
 DB_PORT = int(os.getenv('DB_PORT', '3306'))
 DB_USER = os.getenv('DB_USER', 'root')
@@ -17,3 +20,6 @@ SQLALCHEMY_DATABASE_URI = (
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 #DEFINIR EL RESTO DE VARIABLES DE ENTORNO ACA
+
+# Formato de fecha esperado por la API
+FORMATO_FECHA = '%Y-%m-%d'
