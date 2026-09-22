@@ -1,6 +1,6 @@
 import logging
 from flask import Flask
-from db.init_db import db
+from db import db
 from src.routes.deportes import deportes_bp
 
 # Configuración de los logs
@@ -11,7 +11,7 @@ app.json.sort_keys = False
 
 # --- CONFIGURACIÓN DE LA BASE DE DATOS ---
 # Recuerda cambiar 'root', 'password' y 'nombre_db' por tus credenciales reales
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost:3306/nombre_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost:3306/club_deportivo'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicializamos la base de datos con Flask
