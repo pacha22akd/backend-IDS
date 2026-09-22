@@ -19,8 +19,17 @@ def validacion_email(email):
     return bool(re.match(VALIDACION_EMAIL, email_limpio))
 
 def validacion_socio(datos):
+    if not isinstance(datos, dict):
+        return "El cuerpo de la solicitud debe ser un objeto JSON."
+    
     if not datos:
         return "No hay datos ingresados."
+
+    campos_permitidos = {"nombre", "email"}
+
+    for campo in datos:
+        if campo not in campos_permitidos:
+            return f"El campo '{campo}' no está permitido."
     
     nombre = datos.get('nombre')
     if not nombre or not validacion_nombre(nombre):

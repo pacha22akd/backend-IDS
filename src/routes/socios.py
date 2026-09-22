@@ -47,33 +47,44 @@ def crear_respuesta_error(descripcion, status_code):
 @socios_bp.route('/socios', methods=['POST'])
 
 def crear_socio():
-    datos = request.get_json()
-    respuesta, status_code = socios_ser.registrar_nuevo_socio(datos)
+    try:
+        datos = request.get_json(silent=True)
 
-    if status_code >= 400:
-        return crear_respuesta_error(
-            respuesta["error"],
-            status_code
-        )
+        if datos == None:
+            return crear_respuesta_error("El cuerpo debe contener un JSON válido.", 400)
+        respuesta, status_code = socios_ser.registrar_nuevo_socio(datos)
 
-    return respuesta, status_code
+        if status_code >= 400:
+            return crear_respuesta_error(
+                respuesta["error"],
+                status_code
+            )
+
+        return respuesta, status_code
+    
+    except Exception:
+        return crear_respuesta_error("Ocurrió un error al crear el socio.", 500)
 
 @socios_bp.route('/socios', methods=['GET'])
 
 def obtener_socios():
-    args = request.args
-    respuesta, status_code = socios_ser.listar_socios(args)
+    try:
+        args = request.args
+        respuesta, status_code = socios_ser.listar_socios(args)
 
-    if status_code >= 400:
-        return crear_respuesta_error(
-            respuesta["error"],
-            status_code
-        )
+        if status_code >= 400:
+            return crear_respuesta_error(
+                respuesta["error"],
+                status_code
+            )
 
-    if status_code == 204:
-        return "", 204
+        if status_code == 204:
+            return "", 204
 
-    return jsonify(respuesta), 200
+        return jsonify(respuesta), 200
+    
+    except Exception:
+        return crear_respuesta_error("Ocurrió un error al listar los socios.", 500)
 
 #SOFIIII----------------
 
