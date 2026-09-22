@@ -37,6 +37,9 @@ def listar_socios(args):
     filtro_nombre = args.get('nombre', None)
     socios = socios_repo.obtener_socios_paginados(limit, offset, filtro_nombre)
 
+    if not socios:
+        return None, 204
+
     base_url = "/socios"
     param_filtro = f"&nombre={filtro_nombre}" if filtro_nombre else ""
     links = {
@@ -52,3 +55,42 @@ def listar_socios(args):
         "socios": socios,
         "_links": links
     }, 200
+
+#SOFI-------
+
+def obtener_socio_por_id(id):
+    socio_buscado = socios_repo.buscar_socio_por_id(id)
+    return socio_buscado
+
+def modificar_socio(id, modificaciones):
+    socio_a_modificar = obtener_socio_por_id(id)
+
+    if socio_a_modificar is None:
+        return {
+            "error": "No encontrado",
+            "descripcion": f"No existe el socio con id {id}."
+        }
+
+    error = socios_val.validar_modificaciones_socio(modificaciones)
+
+    if error is not None:
+        return error
+
+    if "email" in modificaciones:
+        modificaciones["email"] = modificaciones["email"].strip().lower()
+
+    if "email" in modificaciones:
+        socio_con_mismo_email = socios_repo.buscar_email_otro_socio(
+            id,
+            modificaciones["email"]
+        )
+
+        if socio_con_mismo_email is not None:
+            return {
+                "error": "Email repetido",
+                "descripcion": "El email ingresado ya pertenece a otro socio."
+            }
+
+    socios_repo.editar_socio(id, modificaciones)
+
+    return {}

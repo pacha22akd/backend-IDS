@@ -1,6 +1,26 @@
 from src.config import db
 from sqlalchemy import text
 
+#SOFIII----
+def buscar_socio_por_id(id):
+    sql = text("""
+    SELECT id, nombre, email, activo 
+    FROM socios 
+    WHERE id = :id
+    """)
+    resultado = db.session.execute(sql, {"id": id}).mappings().first() #mappings() devuelve la fila como un diccionario. first() devuelve la primera de las filas que devuelve mapping(), y si no existe la fila, devuelve None. 
+    return resultado
+
+def buscar_email_otro_socio(id, email):
+    sql = text("""
+    SELECT id, nombre, email, activo 
+    FROM socios 
+    WHERE email = :email AND id != :id
+    """)
+    resultado = db.session.execute(sql, {"email": email, "id": id}).mappings().first()
+    return resultado
+
+#EUGEE-----
 def buscar_email(email):
     sql = text("SELECT id, nombre, activo FROM socios WHERE email = :email")
     resultado = db.session.execute(sql, {"email": email}).fetchone()
@@ -33,3 +53,31 @@ def obtener_socios_paginados(limit, offset, filtro_nombre=None):
     ]
     
     return socios
+
+def editar_socio(id, modificaciones):
+    cambios = []
+    parametros = {"id": id}
+
+    if "nombre" in modificaciones:
+        cambios.append("nombre = :nombre")
+        parametros["nombre"] = modificaciones["nombre"]
+
+    if "email" in modificaciones:
+        cambios.append("email = :email")
+        parametros["email"] = modificaciones["email"]
+
+    if "activo" in modificaciones:
+        cambios.append("activo = :activo")
+        parametros["activo"] = modificaciones["activo"]
+
+    if not cambios:
+        return
+
+    sql = text(f"""
+        UPDATE socios
+        SET {", ".join(cambios)}
+        WHERE id = :id
+    """)
+
+    db.session.execute(sql, parametros)
+    db.session.commit()
