@@ -1,6 +1,6 @@
 import logging
 from flask import Flask
-from db.init_db import db
+from src.config import db
 from src.routes.deportes import deportes_bp
 from src.routes.socios import socios_bp
 
