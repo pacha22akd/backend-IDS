@@ -1,8 +1,9 @@
 import logging
 from flask import Flask
-from db import db
+from src.config import db
 from src.routes.deportes import deportes_bp
 from src.routes.socios import socios_bp
+from src.routes.reservas import reservas_bp
 
 # Configuración de los logs
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s - %(name)s - %(message)s')
@@ -22,6 +23,7 @@ db.init_app(app)
 # Si antes usabas un BASE_URL como '/api', lo ponemos directamente aquí:
 app.register_blueprint(deportes_bp, url_prefix='/api')
 app.register_blueprint(socios_bp, url_prefix='/api')
+app.register_blueprint(reservas_bp, url_prefix='/api')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
