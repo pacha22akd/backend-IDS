@@ -3,6 +3,40 @@ from src.repositories import socios as socios_repo
 from src.repositories import canchas as canchas_repo
 from src.repositories import reservas as reservas_repo
 
+def listar_reservas(
+    id_cancha,
+    id_socio,
+    estado,
+    fecha_desde,
+    fecha_hasta,
+    limit,
+    offset
+):  
+    if id_cancha is not None and id_cancha <= 0:
+        raise ValueError("El id de cancha debe ser positivo")
+
+    if id_socio is not None and id_socio <= 0:
+        raise ValueError("El id de socio debe ser positivo")
+
+    if limit < 1 or limit > 100:
+        raise ValueError("_limit debe estar entre 1 y 100")
+
+    if offset < 0:
+        raise ValueError("_offset debe ser mayor o igual a 0")
+
+    if ((fecha_desde is not None) and (fecha_hasta is not None) and (fecha_desde > fecha_hasta)):
+        raise ValueError("fecha_desde no puede ser mayor que fecha_hasta")
+
+    return reservas_repo.obtener_reservas(
+        id_cancha,
+        id_socio,
+        estado,
+        fecha_desde,
+        fecha_hasta,
+        limit,
+        offset
+    )
+
 def crear_reserva(datos):
 
     id_socio = datos.get('id_socio')
