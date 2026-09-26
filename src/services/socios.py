@@ -1,8 +1,6 @@
 from src.validators import socios as socios_val
 from src.repositories import socios as socios_repo
 
-
-
 def registrar_nuevo_socio(datos):
     error_validacion = socios_val.validacion_socio(datos)
     if error_validacion:

@@ -1,8 +1,10 @@
 from app import db
+from src.repositories.canchas import buscar_cancha_por_id
 from canchas import Cancha
 
-def obtener_todas_canchas():
-    return Cancha.query.all()
+def obtener_todas_canchas(id):
+    cancha = buscar_cancha_por_id(id)
+    return cancha
 
 def obtener_cancha_por_id(cancha_id):
     return Cancha.query.get(cancha_id)
