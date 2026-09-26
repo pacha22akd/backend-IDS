@@ -43,10 +43,10 @@ def listar_socios(args):
     filtro_nombre = args.get('nombre', None)
     filtro_activo = args.get('activo', None)
     if filtro_activo is not None:
-        if filtro_activo.lower() == "true":
+        if filtro_activo == "true":
             filtro_activo = True
 
-        elif filtro_activo.lower() == "false":
+        elif filtro_activo == "false":
             filtro_activo = False
 
         else:
@@ -62,7 +62,7 @@ def listar_socios(args):
 
     ultimo_offset = ((total_socios - 1) // limit) * limit
 
-    base_url = "/socios"
+    base_url = "/api/socios"
     param_filtro = ""
 
     if filtro_nombre:

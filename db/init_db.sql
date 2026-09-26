@@ -1,6 +1,3 @@
-from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
-
 DROP TABLE IF EXISTS reservas;
 DROP TABLE IF EXISTS canchas;
 DROP TABLE IF EXISTS socios;    
@@ -16,6 +13,7 @@ CREATE TABLE IF NOT EXISTS canchas (
     nombre VARCHAR(70) NOT NULL,
     id_deporte INT NOT NULL,
     precio_hora INT NOT NULL,
+    techada BOOLEAN NOT NULL DEFAULT FALSE,
     activa BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (id_deporte) REFERENCES deportes(id)
 );
@@ -23,7 +21,7 @@ CREATE TABLE IF NOT EXISTS canchas (
 CREATE TABLE IF NOT EXISTS socios (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(70) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
     activo BOOLEAN NOT NULL DEFAULT TRUE
 );
 
@@ -31,8 +29,8 @@ CREATE TABLE IF NOT EXISTS reservas (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_cancha INT NOT NULL,
     id_socio INT NOT NULL,
-    fecha_hora_inicio DATETIME NOT NULL,
-    fecha_hora_fin DATETIME NOT NULL,
+    fecha_hora_inicio DATETIME(6) NOT NULL,
+    fecha_hora_fin DATETIME(6) NOT NULL,
     estado ENUM('confirmada','cancelada','finalizada') NOT NULL DEFAULT 'confirmada',
     precio_hora INT NOT NULL,
     precio_total INT NOT NULL,
@@ -40,12 +38,12 @@ CREATE TABLE IF NOT EXISTS reservas (
     FOREIGN KEY (id_socio) REFERENCES socios(id)
 );
 
---INSERT DE ARCHIVOS DE PRUEBA--
+-- INSERT DE ARCHIVOS DE PRUEBA
 
 INSERT INTO deportes (nombre) VALUES
-("Futbol"),
-("Tenis"),
-("Padel");
+('Futbol'),
+('Tenis'),
+('Padel');
 
 INSERT INTO canchas (id_deporte, nombre, precio_hora, activa) VALUES
     (1, 'Cancha Futbol 1', 1000000, TRUE),   

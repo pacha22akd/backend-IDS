@@ -10,6 +10,8 @@ logger = logging.getLogger(__name__)
 def get_deportes():
     try:
         deportes = listar_deportes()
+        if not deportes:
+            return '', 204
         return jsonify(deportes), 200
     except Exception as e:
         logger.error(f"Error al listar deportes: {e}")
