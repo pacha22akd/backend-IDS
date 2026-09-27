@@ -45,13 +45,13 @@ INSERT INTO deportes (nombre) VALUES
 ('Tenis'),
 ('Padel');
 
-INSERT INTO canchas (id_deporte, nombre, precio_hora, activa) VALUES
-    (1, 'Cancha Futbol 1', 1000000, TRUE),   
-    (1, 'Cancha Futbol 2', 1200000, TRUE),   
-    (2, 'Cancha Tenis 1',   800000, TRUE),   
-    (2, 'Cancha Tenis 2',   800000, TRUE),
-    (3, 'Cancha Padel 1',   900000, TRUE),
-    (3, 'Cancha Padel 2',   900000, FALSE);  
+INSERT INTO canchas (id_deporte, nombre, precio_hora, techada, activa) VALUES
+    (1, 'Cancha Futbol 1', 1000000, FALSE, TRUE),   
+    (1, 'Cancha Futbol 2', 1200000, FALSE, TRUE),   
+    (2, 'Cancha Tenis 1',   800000, TRUE, TRUE),   
+    (2, 'Cancha Tenis 2',   800000, TRUE, TRUE),
+    (3, 'Cancha Padel 1',   900000, FALSE, TRUE),
+    (3, 'Cancha Padel 2',   900000, FALSE, FALSE);  
 
 INSERT INTO socios (nombre, email, activo) VALUES
     ('Ana Gómez', 'ana.gomez@example.com', TRUE),
