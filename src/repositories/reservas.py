@@ -80,7 +80,7 @@ def buscar_reserva_cancha_en_horario(id_cancha, hora_inicio, hora_fin):
 
 
 # 3. Insertar la nueva reserva en MySQL
-def guardar_reserva(id_socio, id_cancha, inicio, fin, total, estado="confirmada"):
+def guardar_reserva(id_socio, id_cancha, hora_inicio, hora_fin, total, estado="confirmada"):
     sql = text("""
         INSERT INTO reservas (id_socio, id_cancha, inicio, fin, total, estado)
         VALUES (:id_socio, :id_cancha, :inicio, :fin, :total, :estado)
@@ -89,8 +89,8 @@ def guardar_reserva(id_socio, id_cancha, inicio, fin, total, estado="confirmada"
     db.session.execute(sql, {
         "id_socio": id_socio,
         "id_cancha": id_cancha,
-        "inicio": inicio,
-        "fin": fin,
+        "inicio": hora_inicio,
+        "fin": hora_fin,
         "total": total,
         "estado": estado
     })
