@@ -1,7 +1,7 @@
 from flask import jsonify
 from app import db
 from canchas import Cancha 
-from src.validators.canchas import validar_datos_cancha # <--- Importamos tu validador
+from src.validators.canchas import validar_datos_cancha 
 
 def obtener_cancha(cancha_id):
     cancha = Cancha.query.get(cancha_id)
@@ -15,7 +15,7 @@ def actualizar_cancha_parcial(cancha_id, datos):
     if not cancha:
         return jsonify({"mensaje": "Cancha no encontrada"}), 404
 
-    # Usamos tu validador (Estilo Euge)
+    
     es_valido, mensaje_error = validar_datos_cancha(datos)
     if not es_valido:
         return jsonify({"mensaje": mensaje_error}), 400
