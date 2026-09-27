@@ -6,7 +6,7 @@ from src.services.canchas import (
     eliminar_cancha
 )
 
-from src.services.canchas_service import (
+from src.services.canchas import (
     obtener_cancha, 
     actualizar_cancha_parcial, 
     consultar_disponibles
