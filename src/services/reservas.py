@@ -2,7 +2,7 @@ from datetime import datetime
 from src.repositories import socios as socios_repo
 from src.repositories import canchas as canchas_repo
 from src.repositories import reservas as reservas_repo
-from src.routes.socios import crear_respuesta_error, crear_errores
+from src.routes.socios import crear_respuesta_error
 
 def listar_reservas(
     id_cancha,
@@ -38,6 +38,7 @@ def listar_reservas(
         offset
     )
 
+
 def crear_reserva(datos):
 
     id_socio = datos.get('id_socio')
@@ -59,7 +60,7 @@ def crear_reserva(datos):
 
     try:    
         hora_inicio = datetime.fromisoformat(inicio).replace(tzinfo=None)  # Asegurarse de que la fecha y hora estén en formato naive (sin zona horaria)
-        hora_fin = datetime.fromisoformat(fin).replace(tzinfo=None)  # Asegurarse de que la fecha y hora estén en formato naive (sin zona horaria)
+        hora_fin = datetime.fromisoformat(fin).replace(tzinfo=None)  
     except (ValueError, TypeError):
         return crear_respuesta_error("Formato de fecha u hora inválido. Debe ser ISO 8601", 400)
 
