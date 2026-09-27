@@ -60,7 +60,7 @@ def crear_reserva(datos):
 
     try:    
         hora_inicio = datetime.fromisoformat(inicio).replace(tzinfo=None)  # Asegurarse de que la fecha y hora estén en formato naive (sin zona horaria)
-        hora_fin = datetime.fromisoformat(fin).replace(tzinfo=None)  
+        hora_fin = datetime.fromisoformat(fin).replace(tzinfo=None) #el replace se usa pq mysql usan fechas sin zona horaria
     except (ValueError, TypeError):
         return crear_respuesta_error("Formato de fecha u hora inválido. Debe ser ISO 8601", 400)
 
