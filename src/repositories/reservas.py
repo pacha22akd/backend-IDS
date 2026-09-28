@@ -45,8 +45,8 @@ def buscar_reserva_socio_en_horario(id_socio, hora_inicio, hora_fin):
         SELECT * 
         FROM reservas 
         WHERE id_socio = :id_socio 
-          AND fecha_hora_inicio < :hora_fin 
-          AND fecha_hora_fin > :hora_inicio
+        AND fecha_hora_inicio < :hora_fin 
+        AND fecha_hora_fin > :hora_inicio
         LIMIT 1
     """)
     
@@ -65,8 +65,8 @@ def buscar_reserva_cancha_en_horario(id_cancha, hora_inicio, hora_fin):
         SELECT * 
         FROM reservas 
         WHERE id_cancha = :id_cancha 
-          AND fecha_hora_inicio < :hora_fin 
-          AND fecha_hora_fin > :hora_inicio
+        AND fecha_hora_inicio < :hora_fin 
+        AND fecha_hora_fin > :hora_inicio
         LIMIT 1
     """)
     
@@ -95,3 +95,37 @@ def guardar_reserva(id_socio, id_cancha, hora_inicio, hora_fin, total, estado="c
         "estado": estado
     })
     db.session.commit()
+
+    def obtener_todas_las_reservas () -> list[dict]:
+        sql = text("SELECT nombre, id, id_cancha, id_socio, fecha_hora_inicio, fecha_hora_fin, estado ENUM, precio_hora, precio_total FROM reservas")
+        resultado = db.session.execute(sql).mappings().all()
+
+    return [dict(fila) for fila in resultado] 
+
+    from src.config import db
+
+def buscar_reserva_por_id(id_reserva: int):
+    sql = text("""
+        SELECT id, id_cancha, id_socio, fecha_hora_inicio, fecha_hora_fin, estado, precio_hora, precio_total
+        FROM reservas
+        WHERE id = :id_reserva
+    """)
+    resultado = db.session.execute(sql, {"id_reserva": id_reserva}).mappings().first()
+    if resultado:
+        return dict(resultado)
+    return None
+
+
+def actualizar_estado_reserva(id_reserva: int, nuevo_estado: str):
+    sql = text("""
+        UPDATE reservas
+        SET estado = :nuevo_estado
+        WHERE id = :id_reserva
+    """)
+    db.session.execute(sql, {
+        "nuevo_estado": nuevo_estado,
+        "id_reserva": id_reserva
+    })
+    db.session.commit()
+
+    return buscar_reserva_por_id(id_reserva) 
