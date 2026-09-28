@@ -34,8 +34,7 @@ club-deportivo-api/
 │   │   ├── reservas.py 
 │   │   └── socios.py
 │   └── validators/                 # Validan los datos que ingresa el usuario.
-│   │   ├── canchas.py 
-│   │   ├── deportes.py 
+│   │   ├── canchas.py  
 │   │   ├── reservas.py 
 │   │   └── socios.py
 ├── db/
