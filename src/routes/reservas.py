@@ -99,4 +99,21 @@ def crear_reserva():
         
         return crear_respuesta_error("Error interno del servidor", 500)
 
-    
+@reservas_bp.route('/reservas/<int:id>/estado', methods=['PUT'])
+def cambiar_estado_reserva(id: int):
+    try:
+        datos = request.get_json(silent=True)
+        reserva_actualizada = reservas_service.cambiar_estado_reserva(id, datos)
+        return jsonify(reserva_actualizada), 200
+
+    except ValidationError as error:
+        return crear_respuesta_error(error, 400)
+
+    except NotFoundError as error:
+        return crear_respuesta_error(error, 404)
+
+    except ConflictError as error:
+        return crear_respuesta_error(error, 409)
+
+    except Exception:
+        return crear_respuesta_error("Error interno del servidor", 500) 
