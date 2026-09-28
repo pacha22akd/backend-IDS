@@ -105,3 +105,68 @@ setup_virtualenv.bat
 chmod +x setup_virtualenv.sh
 ./setup_virtualenv.sh
 ```
+
+## ENDPOINTS
+
+Todos los Endpoints estan bajo el prefijo '/club_deportivo_api'. 
+Las respuestas son en formato JSON.
+
+### `GET /deportes`
+
+Lista todos los deportes.
+
+Respuesta `200 OK`:
+
+```json
+[
+    {
+        "nombre": "Futbol"
+    },
+    {
+        "nombre": "Tenis"
+    },
+    {
+        "nombre": "Padel"
+    }
+]
+```
+
+Si no hay deportes cargados, devuelve `204 No Content`.
+
+### `GET /reservas`
+
+Respuesta `200 OK`:
+
+```json
+{
+    "reservas": [
+        {
+            "id": 1,
+            "id_cancha": 1,
+            "id_socio": 1,
+            "fecha_hora_inicio": "Thu, 15 Oct 2026 18:00:00 GMT",
+            "fecha_hora_fin": "Thu, 15 Oct 2026 20:00:00 GMT",
+            "estado": "confirmada",
+            "precio_hora": 1000000,
+            "precio_total": 2000000
+        }
+    ]
+}
+```
+Si no hay reservas cargadas, devuelve `204 No Content`.
+
+### `GET /socios/id`
+
+Respuesta `200 OK`:
+
+```json
+{
+    "id": 1,
+    "nombre": "Ana G??mez",
+    "email": "ana.gomez@example.com",
+    "activo": 1
+}
+```
+
+Si no hay socios cargados, devuelve `204 No Content`.
+
