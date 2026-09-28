@@ -20,6 +20,3 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Creo el objeto db vacio para que pueda utilizarse y asociarse con la bd
 db = SQLAlchemy()
-
-# Formato de fecha esperado por la API
-FORMATO_FECHA = '%Y-%m-%d'
